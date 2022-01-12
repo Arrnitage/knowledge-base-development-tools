@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Explorer</title>
+    <script src="{{ url_for('static',filename='js/jquery-3.6.0.min.js') }}"></script>
+    <script type="text/javascript">
+        // TODO: choose
+        function choose() {
+
+        }
+
+        function create() {
+            this.location.replace("/editor");
+        }
+    </script>
+</head>
+<body>
+<fieldset>
+    <legend>Function</legend>
+    <p>
+        Create a New <b>Offensive Technique</b> <button onclick="create()">Create</button>
+    </p>
+</fieldset>
+
+<fieldset>
+    <legend>Explorer</legend>
+    Directory: <select name="location" onchange="autoChange(this.value, 'base_directory')">&nbsp;&nbsp;
+        <option value="linux">Linux</option>
+        <option value="windows">Windows</option>
+        <option value="common" >Common</option>
+        <option value="domain">Domain</option>
+    </select>
+    <button onclick="choose()">Choose</button><br />
+<!--    tables -->
+</fieldset>
+
+</body>
+</html>

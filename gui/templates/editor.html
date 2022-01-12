@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Knowledge Base Editor</title>
+    <script src="{{ url_for('static',filename='js/jquery-3.6.0.min.js') }}"></script>
+    <style>
+        .input{
+            width:500px;
+        }
+    </style>
+    <script type="text/javascript">
+        function autoChange(value, id){
+            document.getElementById(id).value = value;
+        }
+
+        function check() {
+            $.ajax({
+               type: "POST",
+               dataType: "text",
+               url: "/check",
+               data: $('#check_form').serialize(),
+                success: function(data) {
+                    alert(data)
+                },
+                error: function(data) {
+                    console.log(data)
+                }
+            });
+        }
+
+        function submitData() {
+            $.ajax({
+                type: "POST",
+                url: "/submit",
+                enctype: 'multipart/form-data',
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function(data) {
+                    alert(data)
+                },
+                error: function(data) {
+                    console.log(data)
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+{% autoescape false %}
+<form id="check_form" onsubmit="return false" method="post">
+    <!-- Location -->
+    <fieldset>
+        <legend>Location</legend>
+        <p>
+            Directory: <select name="location" onchange="autoChange(this.value, 'base_directory')">&nbsp;&nbsp;
+            <option value="linux">Linux</option>
+            <option value="windows">Windows</option>
+            <option value="common" >Common</option>
+            <option value="domain">Domain</option>
+        </select>
+            FileName: <input type="text" name="filename" class="input" value="" onchange="autoChange(this.value, 'types_name')">
+            <input type="submit" value="Check" onclick="check()"/> <br /><br />
+            <b>NOTICE</b>: <i>FileName don't need Extension</i>
+        </p>
+    </fieldset>
+</form>
+
+<form id="submit_form" enctype="multipart/form-data" method="post" onsubmit="return false">
+    <input id="base_directory" name="location" value="" hidden="hidden">
+    <!-- Types -->
+    <fieldset>
+        <legend>Types</legend>
+        <p>
+            name: <input id="types_name" type="text" name="k_name" class="input" readonly="readonly"/><br />
+            category: <input type="text" name="k_category" class="input"/><br />
+            effect-object:  <input type="radio" name="effect" value="self">Self
+                            <input type="radio" name="effect" value="other">Other
+        </p>
+    </fieldset>
+    <!-- Imports -->
+    <fieldset>
+        <legend>Imports</legend>
+        <h5> HOST A</h5>
+        <p>
+            {{ host_a }}
+        </p>
+        <h5> HOST B</h5>
+        <p>
+            {{ host_b}}
+        </p>
+    </fieldset>
+    <!-- Exports -->
+    <fieldset>
+        <legend>Exports</legend>
+        <p>
+            {{ exports }}
+        </p>
+    </fieldset>
+    <!-- Procedure -->
+    <fieldset>
+        <legend>Procedure</legend>
+        <p>
+            {{ procedure }}
+        </p>
+    </fieldset>
+    <!-- Description -->
+    <fieldset>
+        <legend>Description</legend>
+        <p>
+            manual: <textarea name="manual" rows="10" cols="50"></textarea><br />
+        </p>
+    </fieldset>
+    <input type="submit" value="Submit" onclick="submitData()"/>
+</form>
+{% endautoescape %}
+</body>
+</html>
