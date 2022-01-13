@@ -8,6 +8,9 @@
         .input{
             width:500px;
         }
+        .notice {
+            color: red;
+        }
     </style>
     <script type="text/javascript">
         function autoChange(value, id){
@@ -28,23 +31,11 @@
                 }
             });
         }
-
-        function nextfile() {
-            $.ajax({
-                type: "POST",
-                url: "/submit",
-                enctype: 'multipart/form-data',
-                contentType: false,
-                cache: false,
-                processData: false,
-                success: function(data) {
-                    alert(data)
-                },
-                error: function(data) {
-                    console.log(data)
-                }
-            });
-        }
+        $("#submit_form").submit(function(e){
+            if (e == "SUCCESS") {
+                alert("OK");
+            }
+        });
     </script>
 </head>
 <body>
@@ -62,12 +53,12 @@
         </select>
             FileName: <input type="text" name="filename" class="input" value="" onchange="autoChange(this.value, 'types_name')">
             <input type="submit" value="Check" onclick="check()"/> <br /><br />
-            <b>NOTICE</b>: <i>FileName don't need Extension</i>
         </p>
+        <p class="notice"><b>NOTICE</b>: <i>FileName don't need Extension</i></p>
     </fieldset>
 </form>
 
-<form id="submit_form" enctype="multipart/form-data" method="post" onsubmit="return false">
+<form id="submit_form" action="/submit" enctype="multipart/form-data" method="post">
     <input id="base_directory" name="location" value="" hidden="hidden">
     <!-- Types -->
     <fieldset>
@@ -101,6 +92,7 @@
     <!-- Procedure -->
     <fieldset>
         <legend>Procedure</legend>
+        <p class="notice"><b class="">NOTICES:</b>&nbsp;<i>Using "~" Split Commands</i></p>
         <p>
             {{ procedure }}
         </p>
@@ -112,7 +104,7 @@
             manual: <textarea name="manual" rows="10" cols="50"></textarea><br />
         </p>
     </fieldset>
-    <input type="submit" value="Next" onclick="nextfile()"/>
+    <input type="submit" value="Next"/>
 </form>
 {% endautoescape %}
 </body>
