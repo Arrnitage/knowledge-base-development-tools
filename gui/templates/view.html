@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View</title>
+    <script src="{{ url_for('static',filename='js/jquery-3.6.0.min.js') }}"></script>
+    <script type="text/javascript">
+        // TODO: edit
+        function edit() {
+
+        }
+        // TODO: delete, logic is copilot write, not right
+        function del() {
+            let verify = confirm("Are you Sure ?");
+            if (verify) {
+                $.ajax({
+                    url: "/delete",
+                    type: "POST",
+                    success: function (result) {
+                        this.location.replace("/");
+                    }
+                });
+            }
+        }
+
+    </script>
+</head>
+<body>
+<fieldset>
+    <legend>View Offensive Tech</legend>
+    <button onclick="edit()">Edit</button>&nbsp;<button onclick="del()">Delete</button> <br />
+    <hr>
+
+    <div>
+        <b><i>In Development Code View... Coming Soon</i></b>
+
+    </div>
+</fieldset>
+
+</body>
+</html>
