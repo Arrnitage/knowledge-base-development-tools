@@ -1,4 +1,5 @@
-from pyhocon import ConfigTree
+from common.utils import str2list
+from common.hocon import list_format, multiline_string_format
 
 
 class Types:
@@ -7,17 +8,29 @@ class Types:
         self.category = []
         self.effect_object = ""
 
-    # TODO
-    def set(self, options):
-        pass
+    def set(self, option: str, value: str):
+        if option == "name":
+            self.name = value
+        elif option == "category":
+            self.category = str2list(value, self.category)
+        elif option == "effect_object":
+            self.effect_object = value
 
-    # TODO
-    def get(self, options):
-        pass
+    def get(self, option: str):
+        if option == "name":
+            return self.name
+        elif option == "category":
+            return self.category
+        elif option == "effect_object":
+            return self.effect_object
 
-    # TODO
-    def to_string(self):
-        pass
+    def to_string(self, option: str):
+        if option == "name":
+            return self.name
+        elif option == "category":
+            return list_format(self.category)
+        elif option == "effect_object":
+            return self.effect_object
 
 
 class Host:
@@ -25,34 +38,40 @@ class Host:
         self.os = ""
         self.privilege = ""
 
-    # TODO
-    def set(self, options):
-        pass
+    def set(self, option: str, value: str):
+        if option == "os":
+            self.os = value
+        elif option == "privilege":
+            self.privilege = value
 
-    # TODO
-    def get(self):
-        pass
+    def get(self, option: str):
+        if option == "os":
+            return self.os
+        elif option == "privilege":
+            return self.privilege
 
-    # TODO
-    def to_string(self):
-        pass
+    def to_string(self, option: str):
+        if option == "os":
+            return self.os
+        elif option == "privilege":
+            return self.privilege
 
 
 class Export:
     def __init__(self):
         self.privilege = ""
 
-    # TODO
-    def set(self, options):
-        pass
+    def set(self, option: str, value: str):
+        if option == "privilege":
+            self.privilege = value
 
-    # TODO
-    def get(self):
-        pass
+    def get(self, option: str):
+        if option == "privilege":
+            return self.privilege
 
-    # TODO
-    def to_string(self):
-        pass
+    def to_string(self, option: str):
+        if option == "privilege":
+            return self.privilege
 
 
 class Procedure:
@@ -64,49 +83,58 @@ class Procedure:
         self.mimikatz = []
         self.cobaltstrike = []
 
-    def set(self, options, commands: list):
-        if options == "cmd":
-            self.cmd = commands
-        elif options == "wmic":
-            self.wmic = commands
-        elif options == "powershell":
-            self.powershell = commands
-        elif options == "bash":
-            self.bash = commands
-        elif options == "mimikatz":
-            self.mimikatz = commands
-        elif options == "cobaltstrike":
-            self.cobaltstrike = commands
+    def set(self, option: str, value: str):
+        if option == "cmd":
+            self.cmd = str2list(value, self.cmd)
+        elif option == "wmic":
+            self.wmic = str2list(value, self.wmic)
+        elif option == "powershell":
+            self.powershell = str2list(value, self.powershell)
+        elif option == "bash":
+            self.bash = str2list(value, self.bash)
+        elif option == "mimikatz":
+            self.mimikatz = str2list(value, self.mimikatz)
+        elif option == "cobaltstrike":
+            self.cobaltstrike = str2list(value, self.cobaltstrike)
 
-    def get(self, options):
-        if options == "cmd":
+    def get(self, option: str):
+        if option == "cmd":
             return self.cmd
-        elif options == "wmic":
+        elif option == "wmic":
             return self.wmic
-        elif options == "powershell":
+        elif option == "powershell":
             return self.powershell
-        elif options == "bash":
+        elif option == "bash":
             return self.bash
-        elif options == "mimikatz":
+        elif option == "mimikatz":
             return self.mimikatz
-        elif options == "cobaltstrike":
+        elif option == "cobaltstrike":
             return self.cobaltstrike
 
-    # TODO
-    def to_string(self):
-        pass
+    def to_string(self, option: str):
+        if option == "cmd":
+            return list_format(self.cmd)
+        elif option == "wmic":
+            return list_format(self.wmic)
+        elif option == "powershell":
+            return list_format(self.powershell)
+        elif option == "bash":
+            return list_format(self.bash)
+        elif option == "mimikatz":
+            return list_format(self.mimikatz)
+        elif option == "cobaltstrike":
+            return list_format(self.cobaltstrike)
 
 
 class Description:
     def __init__(self):
         self.manual = ""
 
-    def set(self, text):
+    def set(self, text: str):
         self.manual = text
 
     def get(self):
         return self.manual
 
-    # TODO
     def to_string(self):
-        pass
+        return multiline_string_format(self.manual)
