@@ -29,7 +29,7 @@
             });
         }
 
-        function submitData() {
+        function nextfile() {
             $.ajax({
                 type: "POST",
                 url: "/submit",
@@ -112,7 +112,7 @@
             manual: <textarea name="manual" rows="10" cols="50"></textarea><br />
         </p>
     </fieldset>
-    <input type="submit" value="Submit" onclick="submitData()"/>
+    <input type="submit" value="Next" onclick="nextfile()"/>
 </form>
 {% endautoescape %}
 </body>
