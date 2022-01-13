@@ -6,8 +6,8 @@ from common.fileutils import check_file_exist
 app = Flask(__name__)
 
 
-@app.route('/index', methods=['GET'])
-@app.route('/', methods=['GET'])
+@app.route('/index', methods=['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST'])
 def index():
     return render_template('/index.html')
 
@@ -22,7 +22,7 @@ def editor():
                            )
 
 
-# TODO
+# TODO save offensive tech file via post request
 @app.route('/submit', methods=['POST'])
 def submit():
     # return Response("SUCCESS")
@@ -43,3 +43,27 @@ def check():
         return Response("SUCCESS")
     else:
         return Response("BAD")
+
+
+# TODO view an offensive tech file via get request
+@app.route('/view/{directory}/{file}', methods=['GET'])
+def view(directory, file):
+    return render_template('/view.html',
+                           directory=directory,
+                           file=file
+                           )
+
+
+# TODO open an offensive tech file edit page via get request
+@app.route('/edit/{directory}/{file}', methods=['GET'])
+def edit(directory, file):
+    return render_template('/edit.html',
+                           directory=directory,
+                           file=file
+                           )
+
+
+# TODO delete interface via post request
+@app.route('/delete', methods=['POST'])
+def delete(directory, file):
+    return Response("SUCCESS")
